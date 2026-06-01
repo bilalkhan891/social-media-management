@@ -54,3 +54,5 @@ Desktop.ini
 
 # local tool configs
 .claude/
+
+/lib/generated/prisma

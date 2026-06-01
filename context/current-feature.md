@@ -1,36 +1,46 @@
 # Current Feature
 
-Dashboard Layout — Stage 7: Settings Page
+Database Setup — COMPLETE
 
 ## Status
 
-Implemented — awaiting browser test & commit
+Neon PostgreSQL database connected, Prisma 7 configured, schema migrated.
 
-## Goals
+## Completed Stages
 
-- [x] Page header "Settings"
-- [x] Three stacked settings cards: Account Settings, Notifications, Dark Mode
-- [x] Each card is clickable with chevron indicator
+### Dashboard Layout (previous)
+- Stage 1 (Setup) — ShadCN initialized, dark mode configured, 14 components installed
+- Stage 2 (App Shell) — Sidebar, Header, AppShell, mock-data in `lib/mock-data.ts`
+- Stage 3 (Dashboard Page) — stats cards, engagement chart, top posts panel, recent posts list
+- Stage 4 (Create Post Page) — editor, media upload, platform selector, schedule picker, action buttons
+- Stage 5 (Scheduled Posts Page) — filter tabs, post grid, preview sidebar, calendar with dot indicators
+- Stage 6 (Connected Accounts Page) — account cards, limits progress bars, upgrade banner
+- Stage 7 (Settings Page) — three stacked settings cards with chevron navigation
 
-## Notes
+### Database Setup (current)
+- Neon project initialized via `neonctl`
+- `.env` created with `DATABASE_URL` (gitignored)
+- Prisma 7 installed (`prisma`, `@prisma/client`, `dotenv`)
+- `prisma/schema.prisma` — models: `User`, `SocialAccount`, `Post`, `PostTarget`
+- `prisma.config.ts` — Prisma 7 config wiring connection URL
+- Migration `20260601113910_init` applied to Neon (tables live)
 
-- Components in `components/settings/`
-- Page (`app/settings/page.tsx`) is a server component
-- Cards are placeholders; sub-routes to be added in a future iteration
-- Current branch: `feature/dashboard-layout-stage-7-settings`
-- Full spec in @context/features/dashboard-layout/stage-7-settings.md
+## Current Branch
+
+`main`
 
 ## Next Steps
 
-After testing and committing stage 7:
-- Merge `feature/dashboard-layout-stage-7-settings` → main, delete branch
-- Dashboard Layout feature complete — all 7 stages done
+- Auth — NextAuth v5 with email/password signup and login
+- Create a Prisma client singleton in `lib/prisma.ts`
+- Browser test stages 5–7 (`/scheduled`, `/accounts`, `/settings`) when convenient
 
-## History
+## Routes
 
-- Stage 1 (Setup) completed — ShadCN initialized, dark mode configured, 14 components installed, build passing
-- Stage 2 (App Shell) completed — Sidebar, Header, AppShell built, mock-data moved to lib/, build passing
-- Stage 3 (Dashboard Page) completed — stats cards, engagement chart, top posts panel, recent posts list, build passing
-- Stage 4 (Create Post Page) completed — editor, media upload, platform selector, scheduler, build passing, merged to main
-- Stage 5 (Scheduled Posts Page) completed — filter tabs, post grid, calendar with dot indicators, build passing, merged to main
-- Stage 6 (Connected Accounts Page) completed — account cards, limits progress bars, upgrade banner, build passing, merged to main
+| Route | Page |
+|---|---|
+| `/dashboard` | Dashboard with stats and engagement chart |
+| `/create` | Create Post with editor and scheduler |
+| `/scheduled` | Scheduled Posts with filter tabs and calendar |
+| `/accounts` | Connected Accounts with limits and upgrade banner |
+| `/settings` | Settings cards |

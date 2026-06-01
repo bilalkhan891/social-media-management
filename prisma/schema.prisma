@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String          @id @default(cuid())
+  email     String          @unique
+  password  String?
+  isPro     Boolean         @default(false)
+  accounts  SocialAccount[]
+  posts     Post[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model SocialAccount {
+  id           String       @id @default(cuid())
+  platform     String
+  platformId   String
+  username     String
+  accessToken  String
+  refreshToken String?
+  tokenExpiry  DateTime?
+  userId       String
+  user         User         @relation(fields: [userId], references: [id])
+  posts        PostTarget[]
+  createdAt    DateTime     @default(now())
+}
+
+model Post {
+  id          String       @id @default(cuid())
+  content     String
+  mediaUrls   String[]
+  status      String       @default("draft")
+  scheduledAt DateTime?
+  publishedAt DateTime?
+  userId      String
+  user        User         @relation(fields: [userId], references: [id])
+  targets     PostTarget[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model PostTarget {
+  id              String        @id @default(cuid())
+  status          String        @default("pending")
+  platformPostId  String?
+  errorMessage    String?
+  postId          String
+  post            Post          @relation(fields: [postId], references: [id])
+  socialAccountId String
+  socialAccount   SocialAccount @relation(fields: [socialAccountId], references: [id])
+}

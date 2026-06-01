@@ -1,6 +1,6 @@
 # Current Feature
 
-Dashboard Layout — Stage 1: Setup
+Dashboard Layout — Stage 2: App Shell
 
 ## Status
 
@@ -8,16 +8,18 @@ Completed
 
 ## Goals
 
-- Initialize ShadCN UI
-- Configure dark mode by default
-- Install all ShadCN components needed for the dashboard layout
+- Build the root layout wrapper (AppShell)
+- Build collapsible Sidebar with nav links and user info
+- Build top Header with title, Connect Account button, and avatar
 
 ## Notes
 
-- ShadCN init options: Style: Default, Base color: Neutral, CSS variables: Yes
-- Dark mode via `dark` class on `<html>` — no media query
-- Full component list in @context/features/dashboard-layout/stage-1-setup.md
+- Components go in `components/layout/` (not `src/components/layout/`)
+- `@/` maps to project root per tsconfig
+- Sidebar uses `usePathname` for active link detection
+- Full spec in @context/features/dashboard-layout/stage-2-app-shell.md
 
 ## History
 
 - Stage 1 (Setup) completed — ShadCN initialized, dark mode configured, 14 components installed, build passing
+- Stage 2 (App Shell) completed — Sidebar, Header, AppShell built, mock-data moved to lib/, build passing

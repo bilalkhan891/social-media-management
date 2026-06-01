@@ -1,21 +1,23 @@
 # Current Feature
 
-<!-- Feature Name -->
+Dashboard Layout — Stage 1: Setup
 
 ## Status
 
-<!-- Not Started|In Progress|Completed -->
-
-Not Started
+Completed
 
 ## Goals
 
-<!-- Goals & requirements -->
+- Initialize ShadCN UI
+- Configure dark mode by default
+- Install all ShadCN components needed for the dashboard layout
 
 ## Notes
 
-<!-- Any extra notes -->
+- ShadCN init options: Style: Default, Base color: Neutral, CSS variables: Yes
+- Dark mode via `dark` class on `<html>` — no media query
+- Full component list in @context/features/dashboard-layout/stage-1-setup.md
 
 ## History
 
-<!-- Keep this updated. Earliest to latest -->
+- Stage 1 (Setup) completed — ShadCN initialized, dark mode configured, 14 components installed, build passing

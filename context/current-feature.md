@@ -1,6 +1,6 @@
 # Current Feature
 
-Dashboard Layout — Stage 5: Scheduled Posts Page
+Dashboard Layout — Stage 6: Connected Accounts Page
 
 ## Status
 
@@ -8,27 +8,25 @@ Implemented — awaiting browser test & commit
 
 ## Goals
 
-- [x] Filter tabs: All Posts | This Week | Twitter | Instagram
-- [x] Post cards grid (2-col on sm, with 3rd col sidebar on lg)
-- [x] Right sidebar preview panel for selected post
-- [x] Calendar view with dot indicators for scheduled days
-- [x] Clicking a calendar day shows posts for that day
+- [x] Page header with "+ Connect Account" button
+- [x] Connected accounts list with platform icon, badge, username, followers, connected-since date
+- [x] Settings + Disconnect action buttons per account
+- [x] Account Limits section with two progress bars
+- [x] Upgrade banner (Pro Plan)
 
 ## Notes
 
-- Components in `components/scheduled/`
-- Page (`app/scheduled/page.tsx`) is a client component — manages `activeTab` state, filters `mockPosts`
-- `PostCard` exports `MockPost` type reused by `PostsGrid`
-- `CalendarView` uses custom `DayButton` override to render dot indicators
-- Current branch: `feature/dashboard-layout-stage-5-scheduled-posts`
-- Full spec in @context/features/dashboard-layout/stage-5-scheduled-posts.md
+- Components in `components/accounts/`
+- Page (`app/accounts/page.tsx`) is a server component — filters `mockSocialAccounts` to `connected === true`
+- `AccountLimits` uses `mockAccountLimits` for progress bar values
+- Current branch: `feature/dashboard-layout-stage-6-accounts`
+- Full spec in @context/features/dashboard-layout/stage-6-accounts.md
 
 ## Next Steps
 
-After testing and committing stage 5:
-- Merge `feature/dashboard-layout-stage-5-scheduled-posts` → main, delete branch
-- Move to Stage 6: Connected Accounts page (`/accounts`)
-- Then Stage 7: Settings page
+After testing and committing stage 6:
+- Merge `feature/dashboard-layout-stage-6-accounts` → main, delete branch
+- Move to Stage 7: Settings page (`/settings`)
 
 ## History
 
@@ -36,3 +34,4 @@ After testing and committing stage 5:
 - Stage 2 (App Shell) completed — Sidebar, Header, AppShell built, mock-data moved to lib/, build passing
 - Stage 3 (Dashboard Page) completed — stats cards, engagement chart, top posts panel, recent posts list, build passing
 - Stage 4 (Create Post Page) completed — editor, media upload, platform selector, scheduler, build passing, merged to main
+- Stage 5 (Scheduled Posts Page) completed — filter tabs, post grid, calendar with dot indicators, build passing, merged to main

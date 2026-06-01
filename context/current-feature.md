@@ -1,6 +1,6 @@
 # Current Feature
 
-Dashboard Layout — Stage 6: Connected Accounts Page
+Dashboard Layout — Stage 7: Settings Page
 
 ## Status
 
@@ -8,25 +8,23 @@ Implemented — awaiting browser test & commit
 
 ## Goals
 
-- [x] Page header with "+ Connect Account" button
-- [x] Connected accounts list with platform icon, badge, username, followers, connected-since date
-- [x] Settings + Disconnect action buttons per account
-- [x] Account Limits section with two progress bars
-- [x] Upgrade banner (Pro Plan)
+- [x] Page header "Settings"
+- [x] Three stacked settings cards: Account Settings, Notifications, Dark Mode
+- [x] Each card is clickable with chevron indicator
 
 ## Notes
 
-- Components in `components/accounts/`
-- Page (`app/accounts/page.tsx`) is a server component — filters `mockSocialAccounts` to `connected === true`
-- `AccountLimits` uses `mockAccountLimits` for progress bar values
-- Current branch: `feature/dashboard-layout-stage-6-accounts`
-- Full spec in @context/features/dashboard-layout/stage-6-accounts.md
+- Components in `components/settings/`
+- Page (`app/settings/page.tsx`) is a server component
+- Cards are placeholders; sub-routes to be added in a future iteration
+- Current branch: `feature/dashboard-layout-stage-7-settings`
+- Full spec in @context/features/dashboard-layout/stage-7-settings.md
 
 ## Next Steps
 
-After testing and committing stage 6:
-- Merge `feature/dashboard-layout-stage-6-accounts` → main, delete branch
-- Move to Stage 7: Settings page (`/settings`)
+After testing and committing stage 7:
+- Merge `feature/dashboard-layout-stage-7-settings` → main, delete branch
+- Dashboard Layout feature complete — all 7 stages done
 
 ## History
 
@@ -35,3 +33,4 @@ After testing and committing stage 6:
 - Stage 3 (Dashboard Page) completed — stats cards, engagement chart, top posts panel, recent posts list, build passing
 - Stage 4 (Create Post Page) completed — editor, media upload, platform selector, scheduler, build passing, merged to main
 - Stage 5 (Scheduled Posts Page) completed — filter tabs, post grid, calendar with dot indicators, build passing, merged to main
+- Stage 6 (Connected Accounts Page) completed — account cards, limits progress bars, upgrade banner, build passing, merged to main

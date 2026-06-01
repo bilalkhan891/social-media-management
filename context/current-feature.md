@@ -1,6 +1,6 @@
 # Current Feature
 
-Dashboard Layout — Stage 2: App Shell
+Dashboard Layout — Stage 3: Dashboard Page
 
 ## Status
 
@@ -8,18 +8,19 @@ Completed
 
 ## Goals
 
-- Build the root layout wrapper (AppShell)
-- Build collapsible Sidebar with nav links and user info
-- Build top Header with title, Connect Account button, and avatar
+- Stats row (4 cards: followers, engagement, scheduled posts, avg reach)
+- Engagement Over Time bar chart (recharts via ShadCN chart)
+- Top Posts panel (per-platform engagement scores)
+- Recent Posts list (with platform and status badges)
 
 ## Notes
 
-- Components go in `components/layout/` (not `src/components/layout/`)
-- `@/` maps to project root per tsconfig
-- Sidebar uses `usePathname` for active link detection
-- Full spec in @context/features/dashboard-layout/stage-2-app-shell.md
+- Components go in `components/dashboard/`
+- Data sourced from `lib/mock-data.ts`
+- Full spec in @context/features/dashboard-layout/stage-3-dashboard.md
 
 ## History
 
 - Stage 1 (Setup) completed — ShadCN initialized, dark mode configured, 14 components installed, build passing
 - Stage 2 (App Shell) completed — Sidebar, Header, AppShell built, mock-data moved to lib/, build passing
+- Stage 3 (Dashboard Page) completed — stats cards, engagement chart, top posts panel, recent posts list, build passing

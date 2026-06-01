@@ -55,4 +55,6 @@ Desktop.ini
 # local tool configs
 .claude/
 
-/lib/generated/prisma
+# generated files
+/lib/generated/
+/prisma/generated/

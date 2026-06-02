@@ -1,0 +1,15 @@
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import AppShell from "@/components/layout/AppShell";
+
+export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  if (!session) redirect("/login");
+
+  return (
+    <TooltipProvider>
+      <AppShell user={session.user}>{children}</AppShell>
+    </TooltipProvider>
+  );
+}

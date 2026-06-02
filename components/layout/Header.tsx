@@ -1,8 +1,21 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { mockUser } from "@/lib/mock-data"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
-export default function Header() {
+interface HeaderProps {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+}
+
+function getInitials(user: HeaderProps["user"]): string {
+  if (user.name) return user.name.slice(0, 2).toUpperCase();
+  if (user.email) return user.email.slice(0, 2).toUpperCase();
+  return "??";
+}
+
+export default function Header({ user }: HeaderProps) {
   return (
     <header className="flex items-center justify-between h-14 px-6 border-b border-border bg-background shrink-0">
       <span className="font-semibold text-sm">Social Media Manager</span>
@@ -12,10 +25,10 @@ export default function Header() {
         </Button>
         <Avatar className="size-8">
           <AvatarFallback className="text-xs bg-sidebar-primary text-sidebar-primary-foreground">
-            {mockUser.initials}
+            {getInitials(user)}
           </AvatarFallback>
         </Avatar>
       </div>
     </header>
-  )
+  );
 }

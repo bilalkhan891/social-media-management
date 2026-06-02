@@ -1,28 +1,27 @@
 # Current Feature
 
-NextAuth v5 — PENDING
-
-## Spec
-
-`@context/features/auth/index.md` (to be created)
+None — ready for next feature.
 
 ## Status
 
-Not started. Database feature complete. Ready to implement auth.
-
-## Next Steps
-
-1. Create `context/features/auth/` spec folder with stage files
-2. Create feature branch `feature/auth`
-3. Implement NextAuth v5 with email/password
+No active feature. Auth is complete and merged (pending commit + merge).
 
 ## Current Branch
 
-`main`
+`feature/auth` (pending commit → merge → delete)
 
 ---
 
 ## History
+
+### NextAuth v5 — COMPLETE
+- Stage 1 — `next-auth@beta`, `@auth/prisma-adapter`, `bcryptjs` installed; `auth.ts` + route handler
+- Stage 2 — PrismaAdapter wired; `auth.config.ts` split out for Edge Runtime (proxy.ts)
+- Stage 3 — Signup page (`app/(auth)/signup`) + `signUpAction` with Zod validation + bcrypt
+- Stage 4 — Login page (`app/(auth)/login`) + Credentials provider; `loginAction` server action
+- Stage 5 — `proxy.ts` route protection; `(app)/layout.tsx` fetches session; Sidebar sign-out button
+- Fix — WSL IPv6 issue: added `dns.setDefaultResultOrder("ipv4first")` to `lib/prisma.ts`
+- Pages restructured into `app/(app)/` and `app/(auth)/` route groups
 
 ### Neon PostgreSQL + Prisma 7 — COMPLETE
 - Stage 1 — Neon init, Prisma 7 install, base schema, first migration
@@ -42,10 +41,12 @@ Not started. Database feature complete. Ready to implement auth.
 
 ## Routes
 
-| Route | Page |
-|---|---|
-| `/dashboard` | Dashboard with stats and engagement chart |
-| `/create` | Create Post with editor and scheduler |
-| `/scheduled` | Scheduled Posts with filter tabs and calendar |
-| `/accounts` | Connected Accounts with limits and upgrade banner |
-| `/settings` | Settings cards |
+| Route | Page | Auth |
+|---|---|---|
+| `/login` | Login form | Public |
+| `/signup` | Signup form | Public |
+| `/dashboard` | Dashboard with stats and engagement chart | Protected |
+| `/create` | Create Post with editor and scheduler | Protected |
+| `/scheduled` | Scheduled Posts with filter tabs and calendar | Protected |
+| `/accounts` | Connected Accounts with limits and upgrade banner | Protected |
+| `/settings` | Settings cards | Protected |

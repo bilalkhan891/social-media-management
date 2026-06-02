@@ -8,11 +8,11 @@ Spec references: `@context/project-overview.md` (Auth section)
 
 | Stage | File | Status | Description |
 |---|---|---|---|
-| 1 | [stage-1-install-config.md](stage-1-install-config.md) | ⬜ Pending | Install NextAuth v5, configure auth.ts, add env vars |
-| 2 | [stage-2-prisma-adapter.md](stage-2-prisma-adapter.md) | ⬜ Pending | Wire Prisma adapter, connect to existing schema |
-| 3 | [stage-3-signup.md](stage-3-signup.md) | ⬜ Pending | Signup page + server action (email/password, bcrypt) |
-| 4 | [stage-4-login.md](stage-4-login.md) | ⬜ Pending | Login page + Credentials provider |
-| 5 | [stage-5-session-protection.md](stage-5-session-protection.md) | ⬜ Pending | Middleware route protection, session in layout |
+| 1 | [stage-1-install-config.md](stage-1-install-config.md) | ✅ Complete | Install NextAuth v5, configure auth.ts, add env vars |
+| 2 | [stage-2-prisma-adapter.md](stage-2-prisma-adapter.md) | ✅ Complete | Wire Prisma adapter, connect to existing schema |
+| 3 | [stage-3-signup.md](stage-3-signup.md) | ✅ Complete | Signup page + server action (email/password, bcrypt) |
+| 4 | [stage-4-login.md](stage-4-login.md) | ✅ Complete | Login page + Credentials provider |
+| 5 | [stage-5-session-protection.md](stage-5-session-protection.md) | ✅ Complete | Middleware route protection, session in layout |
 
 ## Notes
 

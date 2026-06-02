@@ -9,6 +9,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // DIRECT_URL is used for migrations when DATABASE_URL is a pooled connection (Vercel/PgBouncer)
+    url: process.env["DIRECT_URL"] ?? process.env["DATABASE_URL"],
   },
 });

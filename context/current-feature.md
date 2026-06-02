@@ -8,7 +8,7 @@ Neon PostgreSQL + Prisma 7 — IN PROGRESS
 
 ## Status
 
-Stages 1–3 complete. Neon branch strategy and production config still pending.
+Stages 1–4 complete. Production deployment config (Stage 5) pending.
 
 ## Stages
 
@@ -32,11 +32,11 @@ Stages 1–3 complete. Neon branch strategy and production config still pending.
 - `postinstall: prisma generate` added to `package.json` for Vercel
 - Build passes ✓
 
-### Stage 4 — Neon Branch Strategy ⬜
-- Current `DATABASE_URL` points to dev branch — confirm this is correct
-- Create a separate production branch in Neon for prod `DATABASE_URL`
-- Add `DIRECT_URL` if needed for migrations (Neon serverless pooling requirement)
-- Document env vars needed for Vercel deployment
+### Stage 4 — Neon Branch Strategy ✅
+- `prisma.config.ts` updated to use `DIRECT_URL ?? DATABASE_URL` for migrations
+- `.env` documented with pooled vs direct URL guidance
+- Production branch creation documented (manual step before first Vercel deploy)
+- Vercel env var setup documented in stage file
 
 ### Stage 5 — Production Deployment Config ⬜
 - Add `prisma migrate deploy` as a pre-build step in Vercel settings or `package.json`

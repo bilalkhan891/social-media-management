@@ -1,59 +1,35 @@
 # Current Feature
 
-Neon PostgreSQL + Prisma 7 — COMPLETE
+NextAuth v5 — PENDING
 
 ## Spec
 
-`@context/features/database-spec.md`
+`@context/features/auth/index.md` (to be created)
 
 ## Status
 
-All 5 stages complete. Build passes. Ready for next feature.
+Not started. Database feature complete. Ready to implement auth.
 
-## Stages
+## Next Steps
 
-### Stage 1 — Base Setup ✅
-- Neon project initialized via `neonctl`
-- `.env` created with `DATABASE_URL` (gitignored)
-- Prisma 7 installed (`prisma`, `@prisma/client`, `dotenv`)
-- `prisma.config.ts` — Prisma 7 config wiring connection URL
-- `prisma/schema.prisma` — models: `User`, `SocialAccount`, `Post`, `PostTarget`
-- Migration `20260601113910_init` applied to Neon
-
-### Stage 2 — Complete Schema ✅
-- Added NextAuth models: `Account`, `Session`, `VerificationToken`
-- Added cascade deletes on all relations
-- Added indexes on foreign keys and frequently queried fields
-- Migration `20260601170705_add_nextauth_models_and_indexes` applied
-
-### Stage 3 — Prisma Client Singleton ✅
-- `lib/prisma.ts` — singleton using `pg` + `@prisma/adapter-pg` (Prisma 7 requires adapter)
-- Import path: `@/lib/generated/prisma/client` (not `@prisma/client`)
-- `postinstall: prisma generate` added to `package.json` for Vercel
-
-### Stage 4 — Neon Branch Strategy ✅
-- `prisma.config.ts` updated to use `DIRECT_URL ?? DATABASE_URL` for migrations
-- `.env` documented with pooled vs direct URL guidance
-- Production branch setup documented (manual step before first Vercel deploy)
-
-### Stage 5 — Production Deployment Config ✅
-- `build` script: `prisma migrate deploy && next build`
-- `postinstall` script: `prisma generate`
-- Build passes ✓
+1. Create `context/features/auth/` spec folder with stage files
+2. Create feature branch `feature/auth`
+3. Implement NextAuth v5 with email/password
 
 ## Current Branch
 
 `main`
 
-## Notes
-
-- Always use `prisma migrate dev` for schema changes — never `db push`
-- Prisma 7 has breaking changes — config lives in `prisma.config.ts`, not `schema.prisma`
-- Spec ref: `@context/features/database-spec.md`
-
 ---
 
 ## History
+
+### Neon PostgreSQL + Prisma 7 — COMPLETE
+- Stage 1 — Neon init, Prisma 7 install, base schema, first migration
+- Stage 2 — NextAuth models, cascade deletes, indexes, migration applied
+- Stage 3 — `lib/prisma.ts` singleton (`pg` + `@prisma/adapter-pg`)
+- Stage 4 — `DIRECT_URL` support in `prisma.config.ts`, branch strategy documented
+- Stage 5 — `build`: `prisma migrate deploy && next build`, `postinstall`: `prisma generate`
 
 ### Dashboard Layout — COMPLETE
 - Stage 1 (Setup) — ShadCN initialized, dark mode configured, 14 components installed

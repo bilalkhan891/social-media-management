@@ -1,6 +1,6 @@
 # Current Feature
 
-Neon PostgreSQL + Prisma 7 — IN PROGRESS
+Neon PostgreSQL + Prisma 7 — COMPLETE
 
 ## Spec
 
@@ -8,7 +8,7 @@ Neon PostgreSQL + Prisma 7 — IN PROGRESS
 
 ## Status
 
-Stages 1–4 complete. Production deployment config (Stage 5) pending.
+All 5 stages complete. Build passes. Ready for next feature.
 
 ## Stages
 
@@ -30,16 +30,16 @@ Stages 1–4 complete. Production deployment config (Stage 5) pending.
 - `lib/prisma.ts` — singleton using `pg` + `@prisma/adapter-pg` (Prisma 7 requires adapter)
 - Import path: `@/lib/generated/prisma/client` (not `@prisma/client`)
 - `postinstall: prisma generate` added to `package.json` for Vercel
-- Build passes ✓
 
 ### Stage 4 — Neon Branch Strategy ✅
 - `prisma.config.ts` updated to use `DIRECT_URL ?? DATABASE_URL` for migrations
 - `.env` documented with pooled vs direct URL guidance
-- Production branch creation documented (manual step before first Vercel deploy)
-- Vercel env var setup documented in stage file
+- Production branch setup documented (manual step before first Vercel deploy)
 
-### Stage 5 — Production Deployment Config ⬜
-- Add `prisma migrate deploy` as a pre-build step in Vercel settings or `package.json`
+### Stage 5 — Production Deployment Config ✅
+- `build` script: `prisma migrate deploy && next build`
+- `postinstall` script: `prisma generate`
+- Build passes ✓
 
 ## Current Branch
 

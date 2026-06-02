@@ -1,65 +1,43 @@
-# Stage 5 — Production Config ⬜
+# Stage 5 — Production Config ✅
 
 Configure Vercel to run migrations before each deployment.
 
-## Status: Pending
+## Status: Complete
 
 ---
 
-## Why `migrate deploy` in Production
+## What Was Done
 
-`prisma migrate dev` is for development only — it creates migrations interactively.
-
-In production, `prisma migrate deploy` applies all pending migrations non-interactively and safely. It must run before the app starts so the database schema is always in sync with the code.
-
----
-
-## Option A — `package.json` Build Script (Recommended for Vercel)
-
-Add a `postinstall` or custom build command:
-
-**`package.json`**
+### Build script — `package.json`
 ```json
-{
-  "scripts": {
-    "build": "prisma migrate deploy && next build"
-  }
-}
+"build": "prisma migrate deploy && next build",
+"postinstall": "prisma generate"
 ```
 
-Vercel runs `npm run build`, so migrations apply automatically before every deployment.
+- `prisma migrate deploy` runs before every Vercel build, applying pending migrations against the production Neon branch
+- `prisma generate` runs after every `npm install`, ensuring the generated client is always present
 
 ---
 
-## Option B — Vercel Build Command Override
+## Why `migrate deploy` and Not `migrate dev`
 
-In Vercel project settings → **Build & Development Settings** → **Build Command**:
-```
-npx prisma migrate deploy && npm run build
-```
+| Command | Use Case |
+|---|---|
+| `prisma migrate dev` | Local development — creates new migration files interactively |
+| `prisma migrate deploy` | Production — applies existing migrations non-interactively and safely |
 
----
-
-## Generate Prisma Client on Build
-
-Prisma client must be generated after install. Add to `package.json`:
-
-```json
-{
-  "scripts": {
-    "postinstall": "prisma generate"
-  }
-}
-```
-
-This ensures the generated client is always in sync with the schema on Vercel.
+Never run `migrate dev` in production or CI.
 
 ---
 
-## Deployment Checklist
+## Vercel Deployment Checklist
 
-- [ ] `DATABASE_URL` set in Vercel env vars (production Neon branch)
-- [ ] `DIRECT_URL` set in Vercel env vars (if using connection pooling)
-- [ ] `AUTH_SECRET` set in Vercel env vars (for NextAuth)
-- [ ] Build command runs `prisma migrate deploy` before `next build`
-- [ ] `postinstall` runs `prisma generate`
+Before first deploy:
+- [ ] Create `production` branch in Neon dashboard (see Stage 4)
+- [ ] Set `DATABASE_URL` in Vercel env vars (pooled connection string from production branch)
+- [ ] Set `DIRECT_URL` in Vercel env vars (direct connection string from production branch)
+- [ ] Set `AUTH_SECRET` in Vercel env vars (added when NextAuth is implemented)
+
+Vercel will automatically:
+1. Run `npm install` → triggers `postinstall` → `prisma generate`
+2. Run `npm run build` → runs `prisma migrate deploy` → runs `next build`

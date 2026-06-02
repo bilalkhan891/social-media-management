@@ -8,7 +8,7 @@ Neon PostgreSQL + Prisma 7 — IN PROGRESS
 
 ## Status
 
-Partial. Initial schema and migration done. NextAuth models, indexes, cascade deletes, Prisma client singleton, and Neon branch strategy still pending.
+Stages 1–3 complete. Neon branch strategy and production config still pending.
 
 ## Stages
 
@@ -20,14 +20,17 @@ Partial. Initial schema and migration done. NextAuth models, indexes, cascade de
 - `prisma/schema.prisma` — models: `User`, `SocialAccount`, `Post`, `PostTarget`
 - Migration `20260601113910_init` applied to Neon
 
-### Stage 2 — Complete Schema ⬜
-- Add NextAuth models: `Account`, `Session`, `VerificationToken`
-- Add cascade deletes on all relations
-- Add indexes on foreign keys and frequently queried fields
-- Run migration: `prisma migrate dev --name add-nextauth-models`
+### Stage 2 — Complete Schema ✅
+- Added NextAuth models: `Account`, `Session`, `VerificationToken`
+- Added cascade deletes on all relations
+- Added indexes on foreign keys and frequently queried fields
+- Migration `20260601170705_add_nextauth_models_and_indexes` applied
 
-### Stage 3 — Prisma Client Singleton ⬜
-- Create `lib/prisma.ts` — single `PrismaClient` instance safe for Next.js dev/HMR
+### Stage 3 — Prisma Client Singleton ✅
+- `lib/prisma.ts` — singleton using `pg` + `@prisma/adapter-pg` (Prisma 7 requires adapter)
+- Import path: `@/lib/generated/prisma/client` (not `@prisma/client`)
+- `postinstall: prisma generate` added to `package.json` for Vercel
+- Build passes ✓
 
 ### Stage 4 — Neon Branch Strategy ⬜
 - Current `DATABASE_URL` points to dev branch — confirm this is correct

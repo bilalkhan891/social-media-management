@@ -1,8 +1,8 @@
-# Stage 3 — Prisma Client Singleton ⬜
+# Stage 3 — Prisma Client Singleton ✅
 
 Create a single shared `PrismaClient` instance safe for Next.js dev mode with HMR.
 
-## Status: Pending
+## Status: Complete
 
 ---
 
@@ -12,20 +12,43 @@ Next.js hot module reload recreates modules on every change. Without a singleton
 
 ---
 
+## Prisma 7 Note — Adapter Required
+
+Prisma 7's new `prisma-client` generator does **not** read `DATABASE_URL` automatically. A driver adapter must be passed to the constructor. We use `pg` + `@prisma/adapter-pg`.
+
+Import path is from the generated output, not `@prisma/client`:
+```ts
+import { PrismaClient } from "@/lib/generated/prisma/client";
+```
+
+---
+
 ## Implementation
 
 **`lib/prisma.ts`**
 ```ts
-import { PrismaClient } from "@prisma/client";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@/lib/generated/prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
-export const prisma =
-  globalForPrisma.prisma ?? new PrismaClient();
+function createPrismaClient() {
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const adapter = new PrismaPg(pool);
+  return new PrismaClient({ adapter });
+}
+
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
+```
+
+**`package.json`** — add `postinstall` so Vercel regenerates the client after install:
+```json
+"postinstall": "prisma generate"
 ```
 
 ---

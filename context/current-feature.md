@@ -4,11 +4,11 @@ None — ready for next feature.
 
 ## Status
 
-No active feature. Auth is complete and merged (pending commit + merge).
+No active feature. Auth committed and merged to `main` on 2026-06-02.
 
 ## Current Branch
 
-`feature/auth` (pending commit → merge → delete)
+`main`
 
 ---
 

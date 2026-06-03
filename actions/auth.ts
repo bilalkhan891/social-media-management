@@ -24,11 +24,16 @@ export async function signUpAction(formData: FormData) {
 
   const { email, password } = parsed.data;
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) return { error: "Email already in use" };
+  try {
+    const existing = await prisma.user.findUnique({ where: { email } });
+    if (existing) return { error: "Email already in use" };
 
-  const hashed = await bcrypt.hash(password, 12);
-  await prisma.user.create({ data: { email, password: hashed } });
+    const hashed = await bcrypt.hash(password, 12);
+    await prisma.user.create({ data: { email, password: hashed } });
+  } catch (err) {
+    console.error("[signUpAction] Prisma error:", err);
+    return { error: "Something went wrong. Please try again." };
+  }
 
   redirect("/login?registered=true");
 }

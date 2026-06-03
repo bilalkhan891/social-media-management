@@ -1,8 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Settings, Unlink } from "lucide-react"
-import type { Platform } from "@/lib/mock-data"
+import { Settings } from "lucide-react"
+import { DisconnectButton } from "@/components/accounts/DisconnectButton"
+
+type Platform = "twitter" | "instagram" | "linkedin" | "facebook"
 
 const PLATFORM_COLORS: Record<Platform, string> = {
   twitter: "bg-sky-500/10 text-sky-400 border-sky-500/20",
@@ -18,44 +20,35 @@ const PLATFORM_LABELS: Record<Platform, string> = {
   facebook: "Facebook",
 }
 
-function formatFollowers(n: number) {
-  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "K"
-  return n.toString()
-}
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  })
-}
+const DEFAULT_COLOR = "bg-gray-500/10 text-gray-400 border-gray-500/20"
 
 interface AccountCardProps {
   account: {
     id: string
-    platform: Platform
+    platform: string
     username: string
-    followers: number
-    connectedSince: string | null
-    connected: boolean
+    createdAt: Date
   }
 }
 
 export function AccountCard({ account }: AccountCardProps) {
+  const platform = account.platform as Platform
+  const color = PLATFORM_COLORS[platform] ?? DEFAULT_COLOR
+  const label = PLATFORM_LABELS[platform] ?? account.platform
+
   return (
     <Card>
       <CardContent className="p-4">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-3 min-w-0 flex-1">
             <div
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${PLATFORM_COLORS[account.platform]}`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${color}`}
             >
               {account.platform[0].toUpperCase()}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-medium text-sm">{PLATFORM_LABELS[account.platform]}</span>
+                <span className="font-medium text-sm">{label}</span>
                 <Badge
                   variant="outline"
                   className="text-xs bg-green-500/10 text-green-400 border-green-500/20"
@@ -69,28 +62,22 @@ export function AccountCard({ account }: AccountCardProps) {
 
           <div className="flex items-center gap-6 text-xs text-muted-foreground shrink-0">
             <span>
-              <span className="text-foreground font-medium">{formatFollowers(account.followers)}</span>{" "}
-              followers
-            </span>
-            {account.connectedSince && (
-              <span>
-                Connected{" "}
-                <span className="text-foreground font-medium">{formatDate(account.connectedSince)}</span>
+              Connected{" "}
+              <span className="text-foreground font-medium">
+                {account.createdAt.toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </span>
-            )}
+            </span>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
             <Button variant="ghost" size="sm" className="gap-1.5">
               <Settings className="size-3.5" /> Settings
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="gap-1.5 text-destructive hover:text-destructive border-destructive/20 hover:border-destructive/40"
-            >
-              <Unlink className="size-3.5" /> Disconnect
-            </Button>
+            <DisconnectButton accountId={account.id} />
           </div>
         </div>
       </CardContent>
